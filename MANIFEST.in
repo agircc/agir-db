@@ -1,0 +1,4 @@
+include README.md
+recursive-include agir_db/alembic *
+recursive-include agir_db *.py
+global-exclude *.pyc *.pyo __pycache__/* 

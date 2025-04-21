@@ -15,4 +15,12 @@ setup(
         "psycopg2-binary>=2.9.0",
     ],
     include_package_data=True,
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+    ],
 ) 

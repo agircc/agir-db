@@ -16,6 +16,15 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Dependency to get DB session
 def get_db():
+    """
+    Get database session.
+    
+    This function can be used as a dependency in FastAPI applications
+    or directly in any Python application for database operations.
+    
+    Yields:
+        SQLAlchemy session object
+    """
     db = SessionLocal()
     try:
         yield db
