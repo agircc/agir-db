@@ -1,9 +1,9 @@
-from app.models.user import User
-from app.models.verification_code import VerificationCode
-from app.models.task import Task, TaskComment, TaskAttachment, TaskStatus
-from app.models.user_capability import UserCapability
-from app.models.memory import UserMemory
-from app.models.process import Process, ProcessNode, ProcessTransition
-from app.models.process_instance import ProcessInstance
-from app.models.process_instance_step import ProcessInstanceStep
-from app.models.process_role import ProcessRole
+from .user import User
+from .verification_code import VerificationCode
+from .task import Task, TaskComment, TaskAttachment, TaskStatus
+from .user_capability import UserCapability
+from .memory import UserMemory
+from .process import Process, ProcessNode, ProcessTransition
+from .process_instance import ProcessInstance
+from .process_instance_step import ProcessInstanceStep
+from .process_role import ProcessRole
