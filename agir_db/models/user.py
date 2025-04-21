@@ -2,7 +2,7 @@ from datetime import datetime
 import uuid
 import enum
 from typing import List
-from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, Enum
+from sqlalchemy import Column, String, DateTime, Boolean, ForeignKey, Enum, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -60,6 +60,13 @@ class EmbeddingModel(str, enum.Enum):
     JINA_EMBED_V2_SMALL = "jina-embeddings-v2-small-en"
 
 
+class Gender(str, enum.Enum):
+    MALE = "male"
+    FEMALE = "female"
+    OTHER = "other"
+    PREFER_NOT_TO_SAY = "prefer_not_to_say"
+
+
 class User(Base):
     __tablename__ = "users"
     
@@ -70,6 +77,9 @@ class User(Base):
     last_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
     avatar: Mapped[str] = mapped_column(String, nullable=True)
     description: Mapped[str] = mapped_column(String, nullable=True)
+    birth_date: Mapped[datetime] = mapped_column(Date, nullable=True)
+    gender: Mapped[str] = mapped_column(Enum(Gender, native_enum=False), nullable=True)
+    profession: Mapped[str] = mapped_column(String, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
