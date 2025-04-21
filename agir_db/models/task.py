@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 import enum
 
-from app.db.base_class import Base
+from agir_db.db.base_class import Base
 
 
 class TaskStatus(enum.Enum):

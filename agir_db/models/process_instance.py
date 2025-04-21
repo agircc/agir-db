@@ -6,7 +6,7 @@ from sqlalchemy import String, DateTime, ForeignKey, Enum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
-from app.db.base_class import Base
+from agir_db.db.base_class import Base
 
 class ProcessInstanceStatus(str, enum.Enum):
     RUNNING = "RUNNING"

@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.db.base_class import Base
+from agir_db.db.base_class import Base
 
 
 class VerificationCode(Base):

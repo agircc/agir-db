@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
-from app.db.base_class import Base
+from agir_db.db.base_class import Base
 from uuid import uuid4
 
 class ProcessRole(Base):

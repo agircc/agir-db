@@ -5,7 +5,7 @@ from sqlalchemy import Text, Float, Boolean, Integer, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 
-from app.db.base_class import Base
+from agir_db.db.base_class import Base
 
 
 class UserMemory(Base):

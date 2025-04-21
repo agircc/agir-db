@@ -1,4 +1,4 @@
- """
+"""
 Database utilities for AGIR application.
 
 This module contains the database session management, base model class,

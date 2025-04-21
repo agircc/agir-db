@@ -13,6 +13,7 @@ setup(
         "sqlalchemy>=2.0.0",
         "alembic>=1.8.0",
         "psycopg2-binary>=2.9.0",
+        "pydantic-settings>=2.0.0",
     ],
     include_package_data=True,
     classifiers=[
