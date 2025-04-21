@@ -65,6 +65,7 @@ class User(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    username: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=True)
     first_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
     last_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
     avatar: Mapped[str] = mapped_column(String, nullable=True)
