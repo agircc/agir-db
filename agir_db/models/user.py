@@ -99,4 +99,7 @@ class User(Base):
     capabilities: Mapped[List["UserCapability"]] = relationship("UserCapability", foreign_keys="UserCapability.user_id", back_populates="user")
     
     # User memory relationship
-    memories: Mapped[List["UserMemory"]] = relationship("UserMemory", foreign_keys="UserMemory.user_id", back_populates="user") 
+    memories: Mapped[List["UserMemory"]] = relationship("UserMemory", foreign_keys="UserMemory.user_id", back_populates="user")
+    
+    # Custom fields relationship
+    custom_fields: Mapped[List["CustomField"]] = relationship("CustomField", back_populates="user") 
