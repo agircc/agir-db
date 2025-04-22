@@ -2,7 +2,7 @@ from datetime import datetime
 import uuid
 import enum
 from typing import Optional
-from sqlalchemy import String, DateTime, ForeignKey, Enum
+from sqlalchemy import String, DateTime, ForeignKey, Enum, Text, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -21,6 +21,8 @@ class ProcessInstance(Base):
     current_node_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("process_nodes.id"), nullable=True)
     initiator_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     status: Mapped[str] = mapped_column(Enum(ProcessInstanceStatus, native_enum=False), default=ProcessInstanceStatus.RUNNING, nullable=False)
+    config: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
+    evolution: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
