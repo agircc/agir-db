@@ -90,7 +90,7 @@ class User(Base):
     embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_ADA_002)
     
     # Process relationship
-    process_roles: Mapped[List["ProcessUserRole"]] = relationship("ProcessUserRole", back_populates="user")
+    process_roles: Mapped[List["ProcessRoleUser"]] = relationship("ProcessRoleUser", back_populates="user")
     
     # Task relationships
     created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")
