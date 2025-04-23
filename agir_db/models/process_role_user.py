@@ -7,12 +7,12 @@ from sqlalchemy.dialects.postgresql import UUID
 
 from agir_db.db.base_class import Base
 
-class ProcessUserRole(Base):
+class ProcessRoleUser(Base):
     """
     Association model that maps users to processes with specific roles.
     This allows tracking which users participate in which processes and with what roles.
     """
-    __tablename__ = "process_user_roles"
+    __tablename__ = "process_role_users"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
@@ -23,4 +23,4 @@ class ProcessUserRole(Base):
 
     # Relationships
     user = relationship("User", back_populates="process_roles")
-    role = relationship("ProcessRole") 
+    role = relationship("ProcessRole", back_populates="users") 

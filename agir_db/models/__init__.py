@@ -8,4 +8,4 @@ from agir_db.models.process_instance import ProcessInstance
 from agir_db.models.process_instance_step import ProcessInstanceStep
 from agir_db.models.process_role import ProcessRole
 from agir_db.models.custom_field import CustomField
-from agir_db.models.process_user_role import ProcessUserRole 
+from agir_db.models.process_role_user import ProcessRoleUser 

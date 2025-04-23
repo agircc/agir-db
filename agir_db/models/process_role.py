@@ -19,4 +19,7 @@ class ProcessRole(Base):
     process = relationship("Process", back_populates="roles")
     
     # Relationship to ProcessNodes
-    nodes = relationship("ProcessNode", back_populates="role", cascade="all, delete-orphan") 
+    nodes = relationship("ProcessNode", back_populates="role", cascade="all, delete-orphan")
+    
+    # Relationship to ProcessRoleUser
+    users = relationship("ProcessRoleUser", back_populates="role") 
