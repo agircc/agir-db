@@ -86,8 +86,8 @@ class User(Base):
     last_login_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     
     # Use Enum directly instead of pre-defining ENUM type
-    llm_model: Mapped[str] = mapped_column(Enum(LLMModel, native_enum=False), nullable=True, default=LLMModel.GPT_3_5_TURBO)
-    embedding_model: Mapped[str] = mapped_column(Enum(EmbeddingModel, native_enum=False), nullable=True, default=EmbeddingModel.OPENAI_ADA_002)
+    llm_model: Mapped[str] = mapped_column(String, nullable=True, default=LLMModel.GPT_3_5_TURBO)
+    embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_ADA_002)
     
     # Task relationships
     created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")
