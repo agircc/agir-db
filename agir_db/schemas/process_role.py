@@ -25,5 +25,5 @@ class ProcessRoleInDBBase(ProcessRoleBase):
     class Config:
         orm_mode = True
 
-class ProcessRole(ProcessRoleInDBBase):
+class ProcessRoleDTO(ProcessRoleInDBBase):
     pass 

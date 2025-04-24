@@ -36,7 +36,7 @@ class ProcessNodeInDBBase(ProcessNodeBase):
     class Config:
         orm_mode = True
 
-class ProcessNode(ProcessNodeInDBBase):
+class ProcessNodeDTO(ProcessNodeInDBBase):
     pass
 
 class ProcessTransitionBase(BaseModel):
@@ -58,7 +58,7 @@ class ProcessTransitionInDBBase(ProcessTransitionBase):
     class Config:
         orm_mode = True
 
-class ProcessTransition(ProcessTransitionInDBBase):
+class ProcessTransitionDTO(ProcessTransitionInDBBase):
     pass
 
 class ProcessInDBBase(ProcessBase):
@@ -68,7 +68,7 @@ class ProcessInDBBase(ProcessBase):
     class Config:
         orm_mode = True
 
-class Process(ProcessInDBBase):
+class ProcessDTO(ProcessInDBBase):
     nodes: Optional[List[ProcessNode]] = []
     transitions: Optional[List[ProcessTransition]] = []
     roles: Optional[List[ProcessRole]] = []

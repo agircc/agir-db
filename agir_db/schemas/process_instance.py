@@ -33,5 +33,5 @@ class ProcessInstanceInDBBase(ProcessInstanceBase):
     class Config:
         orm_mode = True
 
-class ProcessInstance(ProcessInstanceInDBBase):
+class ProcessInstanceDTO(ProcessInstanceInDBBase):
     pass

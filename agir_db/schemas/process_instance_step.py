@@ -19,5 +19,5 @@ class ProcessInstanceStepInDBBase(ProcessInstanceStepBase):
     class Config:
         orm_mode = True
 
-class ProcessInstanceStep(ProcessInstanceStepInDBBase):
+class ProcessInstanceStepDTO(ProcessInstanceStepInDBBase):
     pass

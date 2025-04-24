@@ -41,7 +41,7 @@ class UserInDBBase(UserBase):
 
 
 # Properties to return to client
-class User(UserInDBBase):
+class UserDTO(UserInDBBase):
     pass
 
 
