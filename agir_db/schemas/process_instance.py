@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime
 from enum import Enum
@@ -14,6 +14,8 @@ class ProcessInstanceBase(BaseModel):
     current_node_id: Optional[UUID] = None
     initiator_id: UUID
     status: ProcessInstanceStatus = ProcessInstanceStatus.RUNNING
+    config: Optional[Dict[str, Any]] = None
+    evolution: Optional[str] = None
 
 class ProcessInstanceCreate(ProcessInstanceBase):
     pass
@@ -21,6 +23,8 @@ class ProcessInstanceCreate(ProcessInstanceBase):
 class ProcessInstanceUpdate(BaseModel):
     current_node_id: Optional[UUID] = None
     status: Optional[ProcessInstanceStatus] = None
+    config: Optional[Dict[str, Any]] = None
+    evolution: Optional[str] = None
 
 class ProcessInstanceInDBBase(ProcessInstanceBase):
     id: UUID

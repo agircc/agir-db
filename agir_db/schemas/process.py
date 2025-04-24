@@ -6,7 +6,9 @@ from app.schemas.process_role import ProcessRole
 
 class ProcessBase(BaseModel):
     name: str
+    learner_role: str
     description: Optional[str] = None
+    created_by: UUID
 
 class ProcessCreate(ProcessBase):
     pass

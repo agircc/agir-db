@@ -9,6 +9,7 @@ from app.schemas.task import (
 from app.schemas.user_capability import UserCapabilityCreate, UserCapabilityUpdate
 from app.schemas.memory import UserMemoryCreate, UserMemoryUpdate, UserMemoryResponse, UserMemoryList, MemorySearchParams
 from app.schemas.models import ModelInfo, ModelsResponse, ModelCategory
+from app.schemas.process_role_user import ProcessRoleUser, ProcessRoleUserCreate, ProcessRoleUserUpdate
 
 from .user_capability import (
     UserCapabilityBasic, UserCapabilityDetail, UserWithCapabilities, CapabilityFeedback, CapabilityStats
