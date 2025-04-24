@@ -133,9 +133,9 @@ class TaskDetail(TaskInDB):
     comments: List["TaskComment"] = []
     attachments: List["TaskAttachment"] = []
     
-    owner: Optional[User] = None
-    assigned_to_user: Optional[User] = None
-    assigned_by_user: Optional[User] = None
+    owner: Optional[UserDTO] = None
+    assigned_to_user: Optional[UserDTO] = None
+    assigned_by_user: Optional[UserDTO] = None
     
     model_config = ConfigDict(from_attributes=True)
 

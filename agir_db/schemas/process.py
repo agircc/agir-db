@@ -69,6 +69,6 @@ class ProcessInDBBase(ProcessBase):
         orm_mode = True
 
 class ProcessDTO(ProcessInDBBase):
-    nodes: Optional[List[ProcessNode]] = []
-    transitions: Optional[List[ProcessTransition]] = []
-    roles: Optional[List[ProcessRole]] = []
+    nodes: Optional[List[ProcessNodeDTO]] = []
+    transitions: Optional[List[ProcessTransitionDTO]] = []
+    roles: Optional[List[ProcessRoleDTO]] = []
