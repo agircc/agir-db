@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, root_validator
 
 from agir_db.models.task import TaskStatus
 from agir_db.schemas.file import FileUploadResponse
-from agir_db.schemas.user import User
+from agir_db.schemas.user import UserDTO
 
 
 # Base Pydantic models
