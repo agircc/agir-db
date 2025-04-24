@@ -1,7 +1,7 @@
 from datetime import datetime
 import uuid
 import enum
-from typing import Optional
+from typing import Optional, List
 from sqlalchemy import String, DateTime, ForeignKey, Enum, Text, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
@@ -29,3 +29,4 @@ class ProcessInstance(Base):
     process = relationship("Process")
     current_node = relationship("ProcessNode")
     initiator = relationship("User")
+    role_users: Mapped[List["ProcessRoleUser"]] = relationship("ProcessRoleUser", back_populates="process_instance")
