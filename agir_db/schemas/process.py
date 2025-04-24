@@ -2,7 +2,7 @@ from typing import Optional, List
 from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
-from app.schemas.process_role import ProcessRole
+from agir_db.schemas.process_role import ProcessRole
 
 class ProcessBase(BaseModel):
     name: str

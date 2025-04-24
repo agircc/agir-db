@@ -3,9 +3,9 @@ from typing import List, Optional, Union
 from uuid import UUID
 from pydantic import BaseModel, Field, ConfigDict, root_validator
 
-from app.models.task import TaskStatus
-from app.schemas.file import FileUploadResponse
-from app.schemas.user import User
+from agir_db.models.task import TaskStatus
+from agir_db.schemas.file import FileUploadResponse
+from agir_db.schemas.user import User
 
 
 # Base Pydantic models

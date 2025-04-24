@@ -4,7 +4,7 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
-from app.models.user import LLMModel, EmbeddingModel
+from agir_db.models.user import LLMModel, EmbeddingModel
 
 
 # Shared properties

@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Dict, List
 from pydantic import BaseModel
 
-from app.models.user import LLMModel, EmbeddingModel
+from agir_db.models.user import LLMModel, EmbeddingModel
 
 
 class ModelCategory(str, Enum):
