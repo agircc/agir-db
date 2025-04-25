@@ -12,6 +12,7 @@ class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    username: Optional[str] = None
     avatar: Optional[str] = None
     description: Optional[str] = None
     is_active: bool = True
