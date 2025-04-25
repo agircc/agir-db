@@ -34,7 +34,7 @@ class ProcessNodeInDBBase(ProcessNodeBase):
     created_at: datetime
     updated_at: datetime
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ProcessNodeDTO(ProcessNodeInDBBase):
     pass
@@ -56,7 +56,7 @@ class ProcessTransitionInDBBase(ProcessTransitionBase):
     created_at: datetime
     updated_at: datetime
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ProcessTransitionDTO(ProcessTransitionInDBBase):
     pass
@@ -66,7 +66,7 @@ class ProcessInDBBase(ProcessBase):
     created_at: datetime
     updated_at: datetime
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class ProcessDTO(ProcessInDBBase):
     nodes: Optional[List[ProcessNodeDTO]] = []

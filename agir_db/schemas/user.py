@@ -43,12 +43,12 @@ class UserInDBBase(UserBase):
 class UserDTO(UserBase):
     id: uuid.UUID
 
+    class Config:
+        from_attributes = True
+
 # Properties to return to client
 class User(UserInDBBase):
     pass
-
-class UserDTO(UserBase):
-    id: uuid.UUID
 
 # Properties stored in DB
 class UserInDB(UserInDBBase):
