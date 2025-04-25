@@ -68,7 +68,12 @@ class ProcessInDBBase(ProcessBase):
     class Config:
         from_attributes = True
 
+        from_attributes = True
+
 class ProcessDTO(ProcessInDBBase):
+    pass
+
+class Process(ProcessInDBBase):
     nodes: Optional[List[ProcessNodeDTO]] = []
     transitions: Optional[List[ProcessTransitionDTO]] = []
     roles: Optional[List[ProcessRoleDTO]] = []
