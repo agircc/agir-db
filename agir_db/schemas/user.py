@@ -16,8 +16,8 @@ class UserBase(BaseModel):
     avatar: Optional[str] = None
     description: Optional[str] = None
     is_active: bool = True
-    llm_model: Optional[LLMModel] = None
-    embedding_model: Optional[EmbeddingModel] = None
+    llm_model: Optional[str] = None
+    embedding_model: Optional[str] = None
 
 
 # Properties to receive via API on creation
