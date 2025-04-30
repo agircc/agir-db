@@ -1,6 +1,6 @@
 from datetime import datetime
 import uuid
-from sqlalchemy import Column, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, DateTime, ForeignKey, Boolean, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -23,5 +23,5 @@ class ChatParticipant(Base):
     
     # Add a unique constraint to ensure a user can only be in a conversation once
     __table_args__ = (
-        {"sqlite_autoincrement": True},
+        UniqueConstraint('conversation_id', 'user_id', name='uq_participant_conversation_user'),
     ) 

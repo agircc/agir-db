@@ -32,5 +32,9 @@ class ChatMessage(Base):
     # Optional reply to another message
     reply_to_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("chat_messages.id"), nullable=True)
     replies = relationship("ChatMessage", 
-                         backref=relationship.backref("reply_to", remote_side=[id]),
-                         foreign_keys=[reply_to_id]) 
+                          back_populates="reply_to",
+                          foreign_keys=[reply_to_id])
+    reply_to = relationship("ChatMessage", 
+                          back_populates="replies",
+                          remote_side=[id],
+                          foreign_keys=[reply_to_id]) 
