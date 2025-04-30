@@ -105,4 +105,9 @@ class User(Base):
     memories: Mapped[List["UserMemory"]] = relationship("UserMemory", foreign_keys="UserMemory.user_id", back_populates="user")
     
     # Custom fields relationship
-    custom_fields: Mapped[List["CustomField"]] = relationship("CustomField", back_populates="user") 
+    custom_fields: Mapped[List["CustomField"]] = relationship("CustomField", back_populates="user")
+    
+    # Chat relationships
+    chat_messages: Mapped[List["ChatMessage"]] = relationship("ChatMessage", foreign_keys="ChatMessage.sender_id", back_populates="sender")
+    chat_participations: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", foreign_keys="ChatParticipant.user_id", back_populates="user")
+    created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator") 

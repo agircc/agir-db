@@ -17,4 +17,12 @@ from agir_db.schemas.user_capability import (
 from agir_db.schemas.memory import (
     UserMemoryBase, UserMemoryCreate, UserMemoryUpdate, UserMemoryResponse, 
     UserMemoryList, MemorySearchParams
+)
+
+from agir_db.schemas.chat import (
+    ChatMessageBase, ChatMessageCreate, ChatMessageUpdate, ChatMessageResponse,
+    ChatConversationBase, ChatConversationCreate, ChatConversationUpdate, 
+    ChatConversationResponse, ChatConversationDetail, ChatConversationBrief,
+    ChatParticipantBase, ChatParticipantCreate, ChatParticipantUpdate, ChatParticipantResponse,
+    ChatUserBrief, UnreadMessageCount
 ) 
