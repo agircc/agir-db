@@ -8,7 +8,7 @@ class ProcessInstanceStepBase(BaseModel):
     node_id: UUID
     user_id: UUID
     action: str
-    comment: Optional[str] = None
+    generated_text: Optional[str] = None
 
 class ProcessInstanceStepCreate(ProcessInstanceStepBase):
     pass

@@ -15,7 +15,7 @@ class ProcessInstanceStep(Base):
     node_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("process_nodes.id"), nullable=False)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     action: Mapped[str] = mapped_column(String(32), nullable=False)
-    comment: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    generated_text: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     instance = relationship("ProcessInstance")
