@@ -37,7 +37,6 @@ class ChatParticipantCreate(ChatParticipantBase):
 class ChatMessageUpdate(BaseModel):
     content: Optional[str] = None
     status: Optional[MessageStatus] = None
-    is_read: Optional[bool] = None
 
 
 class ChatConversationUpdate(BaseModel):
@@ -67,7 +66,6 @@ class ChatMessageResponse(ChatMessageBase):
     conversation_id: UUID
     sender_id: UUID
     status: MessageStatus
-    is_read: bool
     created_at: datetime
     sender: Optional[ChatUserBrief] = None
     
