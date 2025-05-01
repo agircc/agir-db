@@ -27,9 +27,3 @@ class ProcessRoleInDBBase(ProcessRoleBase):
 
 class ProcessRoleDTO(ProcessRoleInDBBase):
     pass
-
-# 导入放在文件末尾以避免循环引用
-from agir_db.schemas.process import ProcessNodeRoleDTO, ProcessNodeDTO
-class ProcessRoleWithNodes(ProcessRoleDTO):
-    role_nodes: Optional[List[ProcessNodeRoleDTO]] = []
-    nodes: Optional[List[ProcessNodeDTO]] = [] 
