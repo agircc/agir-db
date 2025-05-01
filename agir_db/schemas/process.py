@@ -16,12 +16,27 @@ class ProcessCreate(ProcessBase):
 class ProcessUpdate(ProcessBase):
     pass
 
+class ProcessNodeRoleBase(BaseModel):
+    process_node_id: UUID
+    process_role_id: UUID
+
+class ProcessNodeRoleCreate(ProcessNodeRoleBase):
+    pass
+
+class ProcessNodeRoleInDBBase(ProcessNodeRoleBase):
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class ProcessNodeRoleDTO(ProcessNodeRoleInDBBase):
+    pass
+
 class ProcessNodeBase(BaseModel):
     process_id: UUID
     name: str
     description: Optional[str] = None
     node_type: Optional[str] = None
-    role_id: Optional[UUID] = None
 
 class ProcessNodeCreate(ProcessNodeBase):
     pass
@@ -37,7 +52,8 @@ class ProcessNodeInDBBase(ProcessNodeBase):
         from_attributes = True
 
 class ProcessNodeDTO(ProcessNodeInDBBase):
-    pass
+    node_roles: Optional[List[ProcessNodeRoleDTO]] = []
+    roles: Optional[List[ProcessRoleDTO]] = []
 
 class ProcessTransitionBase(BaseModel):
     process_id: UUID
@@ -66,8 +82,6 @@ class ProcessInDBBase(ProcessBase):
     created_at: datetime
     updated_at: datetime
     class Config:
-        from_attributes = True
-
         from_attributes = True
 
 class ProcessDTO(ProcessInDBBase):

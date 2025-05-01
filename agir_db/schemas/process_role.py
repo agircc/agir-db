@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
@@ -26,4 +26,10 @@ class ProcessRoleInDBBase(ProcessRoleBase):
         from_attributes = True
 
 class ProcessRoleDTO(ProcessRoleInDBBase):
-    pass 
+    pass
+
+# 导入放在文件末尾以避免循环引用
+from agir_db.schemas.process import ProcessNodeRoleDTO, ProcessNodeDTO
+class ProcessRoleWithNodes(ProcessRoleDTO):
+    role_nodes: Optional[List[ProcessNodeRoleDTO]] = []
+    nodes: Optional[List[ProcessNodeDTO]] = [] 
