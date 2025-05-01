@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from agir_db.db.base_class import Base
 from uuid import uuid4
+from typing import List
 
 class ProcessRole(Base):
     __tablename__ = "process_roles"
@@ -18,8 +19,10 @@ class ProcessRole(Base):
     # Relationship to Process
     process = relationship("Process", back_populates="roles")
     
-    # Relationship to ProcessNodes
-    nodes = relationship("ProcessNode", back_populates="role", cascade="all, delete-orphan")
+    # Updated relationship to use the association object
+    role_nodes = relationship("ProcessNodeRole", back_populates="role", cascade="all, delete-orphan")
+    # Convenience property to access nodes directly
+    nodes = relationship("ProcessNode", secondary="process_node_roles", viewonly=True)
     
     # Relationship to ProcessRoleUser
     users = relationship("ProcessRoleUser", back_populates="role") 

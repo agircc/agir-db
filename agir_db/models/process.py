@@ -7,6 +7,17 @@ from sqlalchemy.dialects.postgresql import UUID
 
 from agir_db.db.base_class import Base
 
+class ProcessNodeRole(Base):
+    __tablename__ = "process_node_roles"
+    
+    process_node_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("process_nodes.id", ondelete="CASCADE"), primary_key=True)
+    process_role_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("process_roles.id", ondelete="CASCADE"), primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    
+    # Relationships to both sides
+    node: Mapped["ProcessNode"] = relationship("ProcessNode", back_populates="node_roles")
+    role: Mapped["ProcessRole"] = relationship("ProcessRole", back_populates="role_nodes")
+
 class Process(Base):
     __tablename__ = "processes"
 
@@ -31,12 +42,14 @@ class ProcessNode(Base):
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     node_type: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)  # e.g., start, end, approval, etc.
-    role_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("process_roles.id"), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     process: Mapped["Process"] = relationship("Process", back_populates="nodes")
-    role: Mapped[Optional["ProcessRole"]] = relationship("ProcessRole", back_populates="nodes")
+    # Replace direct many-to-many with association object pattern
+    node_roles: Mapped[List["ProcessNodeRole"]] = relationship("ProcessNodeRole", back_populates="node", cascade="all, delete-orphan")
+    # Convenience property to access roles directly
+    roles: Mapped[List["ProcessRole"]] = relationship("ProcessRole", secondary="process_node_roles", viewonly=True)
     outgoing_transitions: Mapped[List["ProcessTransition"]] = relationship("ProcessTransition", foreign_keys="ProcessTransition.from_node_id", back_populates="from_node")
     incoming_transitions: Mapped[List["ProcessTransition"]] = relationship("ProcessTransition", foreign_keys="ProcessTransition.to_node_id", back_populates="to_node")
 
