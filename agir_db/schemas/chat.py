@@ -14,6 +14,8 @@ class ChatMessageBase(BaseModel):
 
 class ChatConversationBase(BaseModel):
     title: Optional[str] = None
+    related_id: Optional[UUID] = None
+    related_type: Optional[str] = None
 
 
 class ChatParticipantBase(BaseModel):
@@ -91,6 +93,8 @@ class ChatConversationResponse(ChatConversationBase):
     created_at: datetime
     updated_at: datetime
     created_by: UUID
+    related_id: Optional[UUID] = None
+    related_type: Optional[str] = None
     participants: List[ChatParticipantResponse] = []
     
     class Config:
@@ -115,6 +119,8 @@ class ChatConversationBrief(BaseModel):
     is_active: bool
     created_at: datetime
     updated_at: datetime
+    related_id: Optional[UUID] = None
+    related_type: Optional[str] = None
     last_message: Optional[ChatMessageResponse] = None
     unread_count: int = 0
     participants: List[ChatParticipantResponse] = []
