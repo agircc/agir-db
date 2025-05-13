@@ -5,7 +5,12 @@ from agir_db.models.user import User  # noqa
 from agir_db.models.task import Task, TaskComment, TaskAttachment  # noqa
 from agir_db.models.user_capability import UserCapability  # noqa
 from agir_db.models.memory import UserMemory  # noqa
-from agir_db.models.process import Process, ProcessNode, ProcessTransition  # noqa
-from agir_db.models.process_instance import ProcessInstance  # noqa
-from agir_db.models.process_instance_step import ProcessInstanceStep  # noqa
-from agir_db.models.process_role import ProcessRole  # noqa 
+from agir_db.models.scenario import Scenario, State, StateTransition  # noqa
+from agir_db.models.episode import Episode  # noqa
+from agir_db.models.step import Step  # noqa
+from agir_db.models.agent_role import AgentRole  # noqa
+from agir_db.models.custom_field import CustomField  # noqa
+from agir_db.models.agent_assignment import AgentAssignment  # noqa
+from agir_db.models.chat_conversation import ChatConversation  # noqa
+from agir_db.models.chat_message import ChatMessage, MessageStatus  # noqa
+from agir_db.models.chat_participant import ChatParticipant  # noqa
