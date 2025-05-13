@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="agir_db",
-    version="0.1.0",
+    version="0.1.1",
     description="Database models and migration code for AGIR application",
     author="AGIR Team",
     author_email="info@agir.cc",
