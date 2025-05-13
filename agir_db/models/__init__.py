@@ -1,5 +1,4 @@
 from agir_db.models.user import User
-from agir_db.models.verification_code import VerificationCode
 from agir_db.models.task import Task, TaskComment, TaskAttachment, TaskStatus
 from agir_db.models.user_capability import UserCapability
 from agir_db.models.memory import UserMemory
