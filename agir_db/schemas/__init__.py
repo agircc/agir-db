@@ -8,7 +8,7 @@ from agir_db.schemas.task import (
 )
 from agir_db.schemas.user_capability import UserCapabilityCreate, UserCapabilityUpdate
 from agir_db.schemas.models import ModelInfo, ModelsResponse, ModelCategory
-from agir_db.schemas.process_role_user import ProcessRoleUserDTO, ProcessRoleUserCreate, ProcessRoleUserUpdate
+from agir_db.schemas.agent_assignment import AgentAssignmentDTO, AgentAssignmentCreate, AgentAssignmentUpdate
 
 from agir_db.schemas.user_capability import (
     UserCapabilityBasic, UserCapabilityDetail, UserWithCapabilities, CapabilityFeedback, CapabilityStats

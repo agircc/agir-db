@@ -7,22 +7,22 @@ from sqlalchemy.dialects.postgresql import UUID
 
 from agir_db.db.base_class import Base
 
-class ProcessRoleUser(Base):
+class AgentAssignment(Base):
     """
-    Association model that maps users to processes with specific roles.
-    This allows tracking which users participate in which processes and with what roles.
+    Association model that maps users to scenarios with specific roles.
+    This allows tracking which users participate in which scenarios and with what roles.
     """
-    __tablename__ = "process_role_users"
+    __tablename__ = "agent_assignments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
-    role_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("process_roles.id"), nullable=False)
-    process_instance_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("process_instances.id"), nullable=True, index=True)
+    role_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("agent_roles.id"), nullable=False)
+    episode_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("episodes.id"), nullable=True, index=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    user = relationship("User", back_populates="process_roles")
-    role = relationship("ProcessRole", back_populates="users")
-    process_instance = relationship("ProcessInstance", back_populates="role_users") 
+    user = relationship("User", back_populates="agent_assignments")
+    role = relationship("AgentRole", back_populates="users")
+    episode = relationship("Episode", back_populates="agent_assignments") 

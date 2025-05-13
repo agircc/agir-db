@@ -3,21 +3,21 @@ from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
 
-class ProcessRoleBase(BaseModel):
+class AgentRoleBase(BaseModel):
     name: str
     description: Optional[str] = None
     model: Optional[str] = None
-    process_id: UUID
+    scenario_id: UUID
 
-class ProcessRoleCreate(ProcessRoleBase):
+class AgentRoleCreate(AgentRoleBase):
     pass
 
-class ProcessRoleUpdate(BaseModel):
+class AgentRoleUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     model: Optional[str] = None
 
-class ProcessRoleInDBBase(ProcessRoleBase):
+class AgentRoleInDBBase(AgentRoleBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
@@ -25,5 +25,5 @@ class ProcessRoleInDBBase(ProcessRoleBase):
     class Config:
         from_attributes = True
 
-class ProcessRoleDTO(ProcessRoleInDBBase):
+class AgentRoleDTO(AgentRoleInDBBase):
     pass

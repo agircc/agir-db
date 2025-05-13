@@ -89,8 +89,8 @@ class User(Base):
     llm_model: Mapped[str] = mapped_column(String, nullable=True, default=LLMModel.GPT_3_5_TURBO)
     embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_ADA_002)
     
-    # Process relationship
-    process_roles: Mapped[List["ProcessRoleUser"]] = relationship("ProcessRoleUser", back_populates="user")
+    # Scenario relationship
+    agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="user")
     
     # Task relationships
     created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")
