@@ -3,12 +3,15 @@ from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
 
+from agir_db.models.step import StepStatus
+
 class StepBase(BaseModel):
     episode_id: UUID
     state_id: UUID
     user_id: UUID
     action: str
     generated_text: Optional[str] = None
+    status: StepStatus = StepStatus.PENDING
 
 class StepCreate(StepBase):
     pass
