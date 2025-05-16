@@ -2,7 +2,10 @@ from agir_db.models.user import User
 from agir_db.models.task import Task, TaskComment, TaskAttachment, TaskStatus
 from agir_db.models.user_capability import UserCapability
 from agir_db.models.memory import UserMemory
-from agir_db.models.scenario import Scenario, State, StateTransition
+from agir_db.models.scenario import Scenario
+from agir_db.models.state import State
+from agir_db.models.state_role import StateRole
+from agir_db.models.state_transition import StateTransition
 from agir_db.models.episode import Episode
 from agir_db.models.step import Step
 from agir_db.models.agent_role import AgentRole

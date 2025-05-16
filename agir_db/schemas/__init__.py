@@ -25,4 +25,21 @@ from agir_db.schemas.chat import (
     ChatConversationResponse, ChatConversationDetail, ChatConversationBrief,
     ChatParticipantBase, ChatParticipantCreate, ChatParticipantUpdate, ChatParticipantResponse,
     ChatUserBrief, UnreadMessageCount
+)
+
+from agir_db.schemas.scenario import (
+    ScenarioBase, ScenarioCreate, ScenarioUpdate, 
+    ScenarioInDBBase, ScenarioDTO, Scenario
+)
+from agir_db.schemas.state import (
+    StateBase, StateCreate, StateUpdate,
+    StateInDBBase, StateDTO
+)
+from agir_db.schemas.state_role import (
+    StateRoleBase, StateRoleCreate,
+    StateRoleInDBBase, StateRoleDTO
+)
+from agir_db.schemas.state_transition import (
+    StateTransitionBase, StateTransitionCreate, StateTransitionUpdate,
+    StateTransitionInDBBase, StateTransitionDTO
 ) 
