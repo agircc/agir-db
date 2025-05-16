@@ -5,7 +5,10 @@ from agir_db.models.user import User  # noqa
 from agir_db.models.task import Task, TaskComment, TaskAttachment  # noqa
 from agir_db.models.user_capability import UserCapability  # noqa
 from agir_db.models.memory import UserMemory  # noqa
-from agir_db.models.scenario import Scenario, State, StateTransition  # noqa
+from agir_db.models.scenario import Scenario  # noqa
+from agir_db.models.state import State  # noqa
+from agir_db.models.state_role import StateRole  # noqa
+from agir_db.models.state_transition import StateTransition  # noqa
 from agir_db.models.episode import Episode  # noqa
 from agir_db.models.step import Step  # noqa
 from agir_db.models.agent_role import AgentRole  # noqa

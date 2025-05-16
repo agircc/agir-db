@@ -7,7 +7,6 @@ from sqlalchemy.dialects.postgresql import UUID
 
 from agir_db.db.base_class import Base
 from agir_db.models.scenario import Scenario
-from agir_db.models.state_transition import StateTransition
 
 class State(Base):
     __tablename__ = "states"
