@@ -91,7 +91,7 @@ class User(Base):
     
     # Use Enum directly instead of pre-defining ENUM type
     llm_model: Mapped[str] = mapped_column(String, nullable=True, default=LLMModel.GPT_3_5_TURBO)
-    embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_ADA_002)
+    embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_3_SMALL)
     
     # Scenario relationship
     agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="user")
