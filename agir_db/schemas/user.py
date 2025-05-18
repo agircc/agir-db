@@ -1,6 +1,6 @@
 from datetime import datetime
 import uuid
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, EmailStr
 
@@ -15,6 +15,10 @@ class UserBase(BaseModel):
     username: Optional[str] = None
     avatar: Optional[str] = None
     description: Optional[str] = None
+    personality_traits: Optional[List[str]] = None
+    background: Optional[str] = None
+    interests: Optional[List[str]] = None
+    skills: Optional[List[str]] = None
     is_active: bool = True
     llm_model: Optional[str] = None
     embedding_model: Optional[str] = None
