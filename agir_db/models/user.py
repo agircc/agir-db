@@ -60,13 +60,6 @@ class EmbeddingModel(str, enum.Enum):
     JINA_EMBED_V2_SMALL = "jina-embeddings-v2-small-en"
 
 
-class Gender(str, enum.Enum):
-    MALE = "male"
-    FEMALE = "female"
-    OTHER = "other"
-    PREFER_NOT_TO_SAY = "prefer_not_to_say"
-
-
 class User(Base):
     __tablename__ = "users"
     
@@ -78,7 +71,7 @@ class User(Base):
     avatar: Mapped[str] = mapped_column(String, nullable=True)
     description: Mapped[str] = mapped_column(String, nullable=True)
     birth_date: Mapped[datetime] = mapped_column(Date, nullable=True)
-    gender: Mapped[str] = mapped_column(Enum(Gender, native_enum=False), nullable=True)
+    gender: Mapped[str] = mapped_column(String, nullable=True)
     profession: Mapped[str] = mapped_column(String, nullable=True)
     personality_traits: Mapped[List[str]] = mapped_column(ARRAY(String), nullable=True)
     background: Mapped[str] = mapped_column(TEXT, nullable=True)
