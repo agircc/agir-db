@@ -10,6 +10,7 @@ class StateBase(BaseModel):
     scenario_id: UUID
     name: str
     description: Optional[str] = None
+    prompt: Optional[str] = None
     node_type: Optional[str] = None
 
 class StateCreate(StateBase):
