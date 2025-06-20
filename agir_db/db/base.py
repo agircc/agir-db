@@ -6,6 +6,7 @@ from agir_db.models.task import Task, TaskComment, TaskAttachment  # noqa
 from agir_db.models.user_capability import UserCapability  # noqa
 from agir_db.models.memory import UserMemory  # noqa
 from agir_db.models.scenario import Scenario  # noqa
+from agir_db.models.organization import Organization  # noqa
 from agir_db.models.state import State  # noqa
 from agir_db.models.state_role import StateRole  # noqa
 from agir_db.models.state_transition import StateTransition  # noqa
