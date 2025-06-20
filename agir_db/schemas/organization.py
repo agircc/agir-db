@@ -30,7 +30,7 @@ class OrganizationBase(BaseModel):
     parent_id: Optional[uuid.UUID] = None
     is_active: bool = True
     is_verified: bool = False
-    metadata: Optional[Dict[str, Any]] = None
+    extra_data: Optional[Dict[str, Any]] = None
 
 
 # Properties to receive via API on creation

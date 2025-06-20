@@ -73,8 +73,8 @@ class Organization(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     
-    # Additional metadata for extensibility
-    metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+    # Additional data for extensibility
+    extra_data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
     
     # Relationships
     # Parent-child relationship for hierarchy
