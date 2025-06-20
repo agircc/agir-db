@@ -107,4 +107,7 @@ class User(Base):
     # Chat relationships
     chat_messages: Mapped[List["ChatMessage"]] = relationship("ChatMessage", foreign_keys="ChatMessage.sender_id", back_populates="sender")
     chat_participations: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", foreign_keys="ChatParticipant.user_id", back_populates="user")
-    created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator") 
+    created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator")
+    
+    # Organization relationships
+    created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator") 

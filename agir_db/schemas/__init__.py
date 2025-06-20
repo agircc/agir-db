@@ -42,4 +42,10 @@ from agir_db.schemas.state_role import (
 from agir_db.schemas.state_transition import (
     StateTransitionBase, StateTransitionCreate, StateTransitionUpdate,
     StateTransitionInDBBase, StateTransitionDTO
+)
+from agir_db.schemas.organization import (
+    OrganizationBase, OrganizationCreate, OrganizationUpdate, OrganizationDTO,
+    OrganizationDetail, OrganizationBrief, OrganizationTree, OrganizationList,
+    GooglePlaceInfo, OrganizationBulkCreate, OrganizationBulkUpdate,
+    OrganizationSearchFilters
 ) 
