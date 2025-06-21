@@ -42,16 +42,6 @@ class UserOrganizationDTO(UserOrganizationInDBBase):
     pass
 
 
-# For detailed responses with user and organization info
-class UserOrganizationDetail(UserOrganizationDTO):
-    user: Optional["UserBrief"] = None
-    organization: Optional["OrganizationBrief"] = None
-    added_by_user: Optional["UserBrief"] = None
-
-    class Config:
-        from_attributes = True
-
-
 # Brief user info for nested relationships
 class UserBrief(BaseModel):
     id: uuid.UUID
@@ -64,8 +54,25 @@ class UserBrief(BaseModel):
         from_attributes = True
 
 
-# Brief organization info for nested relationships (will be defined in organization.py)
-# This is a forward reference that will be resolved later
+# Brief organization info for nested relationships
+class OrganizationBrief(BaseModel):
+    id: uuid.UUID
+    name: str
+    organization_type: str
+    is_active: bool
+
+    class Config:
+        from_attributes = True
+
+
+# For detailed responses with user and organization info
+class UserOrganizationDetail(UserOrganizationDTO):
+    user: Optional["UserBrief"] = None
+    organization: Optional["OrganizationBrief"] = None
+    added_by_user: Optional["UserBrief"] = None
+
+    class Config:
+        from_attributes = True
 
 
 # For adding/removing users from organization
