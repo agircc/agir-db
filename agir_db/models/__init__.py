@@ -5,6 +5,7 @@ from agir_db.models.memory import UserMemory
 from agir_db.models.agent_role import AgentRole
 from agir_db.models.scenario import Scenario
 from agir_db.models.organization import Organization, OrganizationType
+from agir_db.models.user_organization import UserOrganization, OrganizationRole
 
 from agir_db.models.state import State
 from agir_db.models.state_role import StateRole

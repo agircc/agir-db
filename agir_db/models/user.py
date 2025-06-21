@@ -110,4 +110,6 @@ class User(Base):
     created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator")
     
     # Organization relationships
-    created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator") 
+    created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator")
+    organization_memberships: Mapped[List["UserOrganization"]] = relationship("UserOrganization", foreign_keys="UserOrganization.user_id", back_populates="user")
+    organizations: Mapped[List["Organization"]] = relationship("Organization", secondary="user_organizations", back_populates="users", viewonly=True) 

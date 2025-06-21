@@ -48,4 +48,10 @@ from agir_db.schemas.organization import (
     OrganizationDetail, OrganizationBrief, OrganizationTree, OrganizationList,
     GooglePlaceInfo, OrganizationBulkCreate, OrganizationBulkUpdate,
     OrganizationSearchFilters
+)
+from agir_db.schemas.user_organization import (
+    UserOrganizationBase, UserOrganizationCreate, UserOrganizationUpdate, UserOrganizationDTO,
+    UserOrganizationDetail, UserBrief, OrganizationMembersList, UserOrganizationsList,
+    OrganizationMembershipRequest, OrganizationInvitation, RoleChangeRequest,
+    UserOrganizationBulkCreate
 ) 
