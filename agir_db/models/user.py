@@ -112,4 +112,13 @@ class User(Base):
     # Organization relationships
     created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator")
     organization_memberships: Mapped[List["UserOrganization"]] = relationship("UserOrganization", foreign_keys="UserOrganization.user_id", back_populates="user")
-    organizations: Mapped[List["Organization"]] = relationship("Organization", secondary="user_organizations", back_populates="users", viewonly=True) 
+    
+    @property
+    def organizations(self) -> List["Organization"]:
+        """Get all organizations this user is a member of"""
+        return [membership.organization for membership in self.organization_memberships if membership.is_active]
+    
+    @property 
+    def active_organizations(self) -> List["Organization"]:
+        """Get all active organizations this user is a member of"""
+        return [membership.organization for membership in self.organization_memberships if membership.is_active] 

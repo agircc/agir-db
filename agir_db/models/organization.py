@@ -86,7 +86,16 @@ class Organization(Base):
     
     # Many-to-many relationship with users through UserOrganization
     user_memberships: Mapped[List["UserOrganization"]] = relationship("UserOrganization", foreign_keys="UserOrganization.organization_id", back_populates="organization")
-    users: Mapped[List["User"]] = relationship("User", secondary="user_organizations", back_populates="organizations", viewonly=True)
+    
+    @property
+    def users(self) -> List["User"]:
+        """Get all users in this organization"""
+        return [membership.user for membership in self.user_memberships if membership.is_active]
+    
+    @property
+    def active_users(self) -> List["User"]:
+        """Get all active users in this organization"""
+        return [membership.user for membership in self.user_memberships if membership.is_active]
     
     def __repr__(self):
         return f"<Organization(id={self.id}, name='{self.name}', type='{self.organization_type}')>"
@@ -108,11 +117,9 @@ class Organization(Base):
             descendants.extend(child.get_all_descendants())
         return descendants
     
-    def get_active_users(self) -> List["User"]:
-        """Get all active users in this organization"""
-        from agir_db.models.user_organization import UserOrganization
-        return [membership.user for membership in self.user_memberships 
-                if membership.is_active]
+    def get_all_users(self) -> List["User"]:
+        """Get all users in this organization (including inactive)"""
+        return [membership.user for membership in self.user_memberships]
     
     def get_users_by_role(self, role: str) -> List["User"]:
         """Get users by their role in this organization"""
