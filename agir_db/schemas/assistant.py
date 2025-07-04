@@ -9,7 +9,8 @@ from agir_db.models.assistant import LLMModel, EmbeddingModel
 
 # Shared properties
 class AssistantBase(BaseModel):
-    # User-related fields removed - now in separate User schema
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     avatar: Optional[str] = None
     description: Optional[str] = None
     personality_traits: Optional[List[str]] = None

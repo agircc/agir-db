@@ -16,4 +16,5 @@ class User(Base):
     username: Mapped[Optional[str]] = mapped_column(String, unique=True, index=True, nullable=True)
     first_name: Mapped[Optional[str]] = mapped_column(String, index=True, nullable=True)
     last_name: Mapped[Optional[str]] = mapped_column(String, index=True, nullable=True)
+    avatar: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)

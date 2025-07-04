@@ -11,6 +11,7 @@ class UserBase(BaseModel):
     username: Optional[str] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    avatar: Optional[str] = None
 
 
 # Properties to receive via API on creation

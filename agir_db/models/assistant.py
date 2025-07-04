@@ -64,7 +64,8 @@ class Assistant(Base):
     __tablename__ = "assistants"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    # User-related fields removed - now in separate User model
+    first_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
+    last_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
     avatar: Mapped[str] = mapped_column(String, nullable=True)
     description: Mapped[str] = mapped_column(String, nullable=True)
     birth_date: Mapped[datetime] = mapped_column(Date, nullable=True)
