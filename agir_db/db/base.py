@@ -2,6 +2,7 @@
 # imported by Alembic
 from agir_db.db.base_class import Base  # noqa
 from agir_db.models.assistant import Assistant  # noqa
+from agir_db.models.user import User  # noqa
 from agir_db.models.task import Task, TaskComment, TaskAttachment  # noqa
 from agir_db.models.assistant_capability import AssistantCapability  # noqa
 from agir_db.models.memory import AssistantMemory  # noqa

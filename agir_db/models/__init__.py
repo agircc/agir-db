@@ -1,4 +1,5 @@
 from agir_db.models.assistant import Assistant
+from agir_db.models.user import User
 from agir_db.models.task import Task, TaskComment, TaskAttachment, TaskStatus
 from agir_db.models.assistant_capability import AssistantCapability
 from agir_db.models.memory import AssistantMemory

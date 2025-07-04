@@ -1,5 +1,6 @@
 from agir_db.schemas.auth import TokenPayload, Token, SendVerificationCode, VerifyEmail
 from agir_db.schemas.assistant import AssistantDTO, AssistantCreate, AssistantUpdate, AssistantBase
+from agir_db.schemas.user import UserDTO, UserCreate, UserUpdate, UserBase
 from agir_db.schemas.task import (
     Task, TaskCreate, TaskUpdate, TaskDetail, TaskList, TaskBrief,
     TaskComment, TaskCommentCreate, TaskCommentUpdate, TaskCommentList,

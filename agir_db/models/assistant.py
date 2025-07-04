@@ -64,10 +64,7 @@ class Assistant(Base):
     __tablename__ = "assistants"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
-    username: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=True)
-    first_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
-    last_name: Mapped[str] = mapped_column(String, index=True, nullable=True)
+    # User-related fields removed - now in separate User model
     avatar: Mapped[str] = mapped_column(String, nullable=True)
     description: Mapped[str] = mapped_column(String, nullable=True)
     birth_date: Mapped[datetime] = mapped_column(Date, nullable=True)
@@ -80,7 +77,6 @@ class Assistant(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
-    last_login_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     
     # Use Enum directly instead of pre-defining ENUM type
     llm_model: Mapped[str] = mapped_column(String, nullable=True, default=LLMModel.GPT_3_5_TURBO)
