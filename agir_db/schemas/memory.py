@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 # Base schema for UserMemory
-class UserMemoryBase(BaseModel):
+class AssistantMemoryBase(BaseModel):
     content: str
     meta_data: Optional[Dict[str, Any]] = {}
     importance: Optional[float] = 1.0
@@ -15,12 +15,12 @@ class UserMemoryBase(BaseModel):
 
 
 # Schema for creating a new UserMemory
-class UserMemoryCreate(UserMemoryBase):
-    user_id: uuid.UUID
+class AssistantMemoryCreate(AssistantMemoryBase):
+    assistant_id: uuid.UUID
 
 
 # Schema for updating an existing UserMemory
-class UserMemoryUpdate(BaseModel):
+class AssistantMemoryUpdate(BaseModel):
     content: Optional[str] = None
     meta_data: Optional[Dict[str, Any]] = None
     importance: Optional[float] = None
@@ -29,9 +29,9 @@ class UserMemoryUpdate(BaseModel):
 
 
 # Schema for UserMemory in response
-class UserMemoryResponse(UserMemoryBase):
+class AssistantMemoryResponse(AssistantMemoryBase):
     id: uuid.UUID
-    user_id: uuid.UUID
+    assistant_id: uuid.UUID
     is_active: bool
     access_count: int
     last_accessed: Optional[datetime] = None
@@ -43,8 +43,8 @@ class UserMemoryResponse(UserMemoryBase):
 
 
 # Schema for retrieving multiple UserMemory items with pagination
-class UserMemoryList(BaseModel):
-    items: List[UserMemoryResponse]
+class AssistantMemoryList(BaseModel):
+    items: List[AssistantMemoryResponse]
     total: int
     page: int
     page_size: int

@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from pydantic import BaseModel
 
-from agir_db.models.user_organization import OrganizationRole
+from agir_db.models.assistant_organization import OrganizationRole
 
 
 # Shared properties

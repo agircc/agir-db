@@ -3,20 +3,20 @@ from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
 
-class AgentAssignmentBase(BaseModel):
-    user_id: UUID
+class AssistantAssignmentBase(BaseModel):
+    assistant_id: UUID
     role_id: UUID 
     episode_id: Optional[UUID] = None
     description: Optional[str] = None
 
-class AgentAssignmentCreate(AgentAssignmentBase):
+class AssistantAssignmentCreate(AssistantAssignmentBase):
     pass
 
-class AgentAssignmentUpdate(BaseModel):
+class AssistantAssignmentUpdate(BaseModel):
     description: Optional[str] = None
     episode_id: Optional[UUID] = None
 
-class AgentAssignmentInDBBase(AgentAssignmentBase):
+class AssistantAssignmentInDBBase(AssistantAssignmentBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
@@ -24,5 +24,5 @@ class AgentAssignmentInDBBase(AgentAssignmentBase):
     class Config:
         from_attributes = True
 
-class AgentAssignmentDTO(AgentAssignmentInDBBase):
+class AssistantAssignmentDTO(AssistantAssignmentInDBBase):
     pass 

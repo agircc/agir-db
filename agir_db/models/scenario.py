@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 
 from agir_db.db.base_class import Base
-from agir_db.models.user import Assistant
+from agir_db.models.assistant import Assistant
 # from agir_db.models.state import State
 # from agir_db.models.state_transition import StateTransition
 # from agir_db.models.agent_role import AgentRole

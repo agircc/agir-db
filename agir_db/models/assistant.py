@@ -87,7 +87,7 @@ class Assistant(Base):
     embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_3_SMALL)
     
     # Scenario relationship
-    agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="assistant")
+    assistant_assignments: Mapped[List["AssistantAssignment"]] = relationship("AssistantAssignment", back_populates="assistant")
     
     # Task relationships
     created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")

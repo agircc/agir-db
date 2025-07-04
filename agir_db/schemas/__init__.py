@@ -1,22 +1,22 @@
 from agir_db.schemas.auth import TokenPayload, Token, SendVerificationCode, VerifyEmail
-from agir_db.schemas.user import UserDTO, UserCreate, UserUpdate, UserBase
+from agir_db.schemas.assistant import AssistantDTO, AssistantCreate, AssistantUpdate, AssistantBase
 from agir_db.schemas.task import (
     Task, TaskCreate, TaskUpdate, TaskDetail, TaskList, TaskBrief,
     TaskComment, TaskCommentCreate, TaskCommentUpdate, TaskCommentList,
     TaskAttachment, TaskAttachmentCreate, TaskAttachmentList,
     TaskCountSummary
 )
-from agir_db.schemas.user_capability import UserCapabilityCreate, UserCapabilityUpdate
+from agir_db.schemas.assistant_capability import AssistantCapabilityCreate, AssistantCapabilityUpdate
 from agir_db.schemas.models import ModelInfo, ModelsResponse, ModelCategory
-from agir_db.schemas.agent_assignment import AgentAssignmentDTO, AgentAssignmentCreate, AgentAssignmentUpdate
+from agir_db.schemas.assistant_assignment import AssistantAssignmentDTO, AssistantAssignmentCreate, AssistantAssignmentUpdate
 
-from agir_db.schemas.user_capability import (
-    UserCapabilityBasic, UserCapabilityDetail, UserWithCapabilities, CapabilityFeedback, CapabilityStats
+from agir_db.schemas.assistant_capability import (
+    AssistantCapabilityBasic, AssistantCapabilityDetail, AssistantWithCapabilities, CapabilityFeedback, CapabilityStats
 )
 
 from agir_db.schemas.memory import (
-    UserMemoryBase, UserMemoryCreate, UserMemoryUpdate, UserMemoryResponse, 
-    UserMemoryList, MemorySearchParams
+    AssistantMemoryBase, AssistantMemoryCreate, AssistantMemoryUpdate, AssistantMemoryResponse, 
+    AssistantMemoryList, MemorySearchParams
 )
 
 from agir_db.schemas.chat import (
@@ -24,7 +24,7 @@ from agir_db.schemas.chat import (
     ChatConversationBase, ChatConversationCreate, ChatConversationUpdate, 
     ChatConversationResponse, ChatConversationDetail, ChatConversationBrief,
     ChatParticipantBase, ChatParticipantCreate, ChatParticipantUpdate, ChatParticipantResponse,
-    ChatUserBrief, UnreadMessageCount
+    ChatAssistantBrief, UnreadMessageCount
 )
 
 from agir_db.schemas.scenario import (
@@ -49,9 +49,9 @@ from agir_db.schemas.organization import (
     GooglePlaceInfo, OrganizationBulkCreate, OrganizationBulkUpdate,
     OrganizationSearchFilters
 )
-from agir_db.schemas.user_organization import (
-    UserOrganizationBase, UserOrganizationCreate, UserOrganizationUpdate, UserOrganizationDTO,
-    UserOrganizationDetail, UserBrief, OrganizationMembersList, UserOrganizationsList,
+from agir_db.schemas.assistant_organization import (
+    AssistantOrganizationBase, AssistantOrganizationCreate, AssistantOrganizationUpdate, AssistantOrganizationDTO,
+    AssistantOrganizationDetail, AssistantBrief, OrganizationMembersList, AssistantOrganizationsList,
     OrganizationMembershipRequest, OrganizationInvitation, RoleChangeRequest,
-    UserOrganizationBulkCreate
+    AssistantOrganizationBulkCreate
 ) 

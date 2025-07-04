@@ -4,11 +4,11 @@ from typing import Optional, List
 
 from pydantic import BaseModel, EmailStr
 
-from agir_db.models.user import LLMModel, EmbeddingModel
+from agir_db.models.assistant import LLMModel, EmbeddingModel
 
 
 # Shared properties
-class UserBase(BaseModel):
+class AssistantBase(BaseModel):
     email: Optional[EmailStr] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
@@ -25,17 +25,17 @@ class UserBase(BaseModel):
 
 
 # Properties to receive via API on creation
-class UserCreate(UserBase):
+class AssistantCreate(AssistantBase):
     pass
 
 
 # Properties to receive via API on update
-class UserUpdate(UserBase):
+class AssistantUpdate(AssistantBase):
     pass
 
 
 # Properties shared by models stored in DB
-class UserInDBBase(UserBase):
+class AssistantInDBBase(AssistantBase):
     id: uuid.UUID
     created_at: datetime
     created_by: Optional[uuid.UUID] = None
@@ -44,16 +44,16 @@ class UserInDBBase(UserBase):
     class Config:
         from_attributes = True
 
-class UserDTO(UserBase):
+class AssistantDTO(AssistantBase):
     id: uuid.UUID
 
     class Config:
         from_attributes = True
 
 # Properties to return to client
-class User(UserInDBBase):
+class Assistant(AssistantInDBBase):
     pass
 
 # Properties stored in DB
-class UserInDB(UserInDBBase):
+class AssistantInDB(AssistantInDBBase):
     pass 

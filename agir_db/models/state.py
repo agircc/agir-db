@@ -24,6 +24,6 @@ class State(Base):
     # Replace direct many-to-many with association object pattern
     state_roles: Mapped[List["StateRole"]] = relationship("StateRole", back_populates="state", cascade="all, delete-orphan")
     # Convenience property to access roles directly
-    roles: Mapped[List["AgentRole"]] = relationship("AgentRole", secondary="state_roles", viewonly=True)
+    roles: Mapped[List["AssistantRole"]] = relationship("AssistantRole", secondary="state_roles", viewonly=True)
     outgoing_transitions: Mapped[List["StateTransition"]] = relationship("StateTransition", foreign_keys="StateTransition.from_state_id", back_populates="from_state")
     incoming_transitions: Mapped[List["StateTransition"]] = relationship("StateTransition", foreign_keys="StateTransition.to_state_id", back_populates="to_state") 

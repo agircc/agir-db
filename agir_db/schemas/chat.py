@@ -19,7 +19,7 @@ class ChatConversationBase(BaseModel):
 
 
 class ChatParticipantBase(BaseModel):
-    user_id: UUID
+    assistant_id: UUID
 
 
 # Create schemas
@@ -52,7 +52,7 @@ class ChatParticipantUpdate(BaseModel):
 
 
 # Response schemas
-class ChatUserBrief(BaseModel):
+class ChatAssistantBrief(BaseModel):
     id: UUID
     username: Optional[str] = None
     first_name: Optional[str] = None
@@ -69,7 +69,7 @@ class ChatMessageResponse(ChatMessageBase):
     sender_id: UUID
     status: MessageStatus
     created_at: datetime
-    sender: Optional[ChatUserBrief] = None
+    sender: Optional[ChatAssistantBrief] = None
     
     class Config:
         from_attributes = True
@@ -81,7 +81,7 @@ class ChatParticipantResponse(ChatParticipantBase):
     is_active: bool
     joined_at: datetime
     last_read_at: Optional[datetime] = None
-    user: Optional[ChatUserBrief] = None
+    assistant: Optional[ChatAssistantBrief] = None
     
     class Config:
         from_attributes = True

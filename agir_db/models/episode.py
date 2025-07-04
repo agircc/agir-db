@@ -29,4 +29,4 @@ class Episode(Base):
     scenario = relationship("Scenario")
     current_state = relationship("State")
     initiator = relationship("Assistant")
-    agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="episode")
+    assistant_assignments: Mapped[List["AssistantAssignment"]] = relationship("AssistantAssignment", back_populates="episode")

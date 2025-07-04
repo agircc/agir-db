@@ -3,21 +3,21 @@ from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
 
-class AgentRoleBase(BaseModel):
+class AssistantRoleBase(BaseModel):
     name: str
     description: Optional[str] = None
     model: Optional[str] = None
     scenario_id: UUID
 
-class AgentRoleCreate(AgentRoleBase):
+class AssistantRoleCreate(AssistantRoleBase):
     pass
 
-class AgentRoleUpdate(BaseModel):
+class AssistantRoleUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     model: Optional[str] = None
 
-class AgentRoleInDBBase(AgentRoleBase):
+class AssistantRoleInDBBase(AssistantRoleBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
@@ -25,5 +25,5 @@ class AgentRoleInDBBase(AgentRoleBase):
     class Config:
         from_attributes = True
 
-class AgentRoleDTO(AgentRoleInDBBase):
+class AssistantRoleDTO(AssistantRoleInDBBase):
     pass

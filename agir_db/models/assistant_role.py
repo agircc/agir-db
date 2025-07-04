@@ -5,8 +5,8 @@ from agir_db.db.base_class import Base
 from uuid import uuid4
 from typing import List
 
-class AgentRole(Base):
-    __tablename__ = "agent_roles"
+class AssistantRole(Base):
+    __tablename__ = "assistant_roles"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     name = Column(String, index=True, nullable=False)
@@ -25,4 +25,4 @@ class AgentRole(Base):
     states = relationship("State", secondary="state_roles", viewonly=True)
     
     # Relationship to AgentAssignment
-    assistants = relationship("AgentAssignment", back_populates="role") 
+    assistants = relationship("AssistantAssignment", back_populates="role") 
