@@ -10,7 +10,7 @@ from agir_db.db.base_class import Base
 
 
 class OrganizationRole(str, enum.Enum):
-    """User role within an organization"""
+    """Assistant role within an organization"""
     OWNER = "owner"
     ADMIN = "admin"
     MANAGER = "manager"
@@ -18,15 +18,15 @@ class OrganizationRole(str, enum.Enum):
     GUEST = "guest"
 
 
-class UserOrganization(Base):
-    """Association model for User-Organization many-to-many relationship"""
-    __tablename__ = "user_organizations"
+class AssistantOrganization(Base):
+    """Association model for Assistant-Organization many-to-many relationship"""
+    __tablename__ = "assistant_organizations"
     
     # Primary key
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     
     # Foreign keys
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False, index=True)
     organization_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("organizations.id"), nullable=False, index=True)
     
     # Role and permissions
@@ -37,13 +37,13 @@ class UserOrganization(Base):
     joined_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # Who added this user to the organization
-    added_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    # Who added this assistant to the organization
+    added_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
     
     # Relationships
-    user: Mapped["User"] = relationship("User", foreign_keys=[user_id], back_populates="organization_memberships")
-    organization: Mapped["Organization"] = relationship("Organization", foreign_keys=[organization_id], back_populates="user_memberships")
-    added_by_user: Mapped[Optional["User"]] = relationship("User", foreign_keys=[added_by])
+    assistant: Mapped["Assistant"] = relationship("Assistant", foreign_keys=[assistant_id], back_populates="organization_memberships")
+    organization: Mapped["Organization"] = relationship("Organization", foreign_keys=[organization_id], back_populates="assistant_memberships")
+    added_by_assistant: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[added_by])
     
     def __repr__(self):
-        return f"<UserOrganization(user_id={self.user_id}, org_id={self.organization_id}, role='{self.role}')>" 
+        return f"<AssistantOrganization(assistant_id={self.assistant_id}, org_id={self.organization_id}, role='{self.role}')>" 

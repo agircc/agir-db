@@ -25,4 +25,4 @@ class AgentRole(Base):
     states = relationship("State", secondary="state_roles", viewonly=True)
     
     # Relationship to AgentAssignment
-    users = relationship("AgentAssignment", back_populates="role") 
+    assistants = relationship("AgentAssignment", back_populates="role") 

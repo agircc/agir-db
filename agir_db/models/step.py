@@ -20,7 +20,7 @@ class Step(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     episode_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("episodes.id"), nullable=False, index=True)
     state_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("states.id"), nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
     action: Mapped[str] = mapped_column(String(32), nullable=False)
     generated_text: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     status: Mapped[StepStatus] = mapped_column(Enum(StepStatus), default=StepStatus.PENDING, nullable=False)
@@ -28,4 +28,4 @@ class Step(Base):
 
     episode = relationship("Episode")
     state = relationship("State")
-    user = relationship("User")
+    assistant = relationship("Assistant")

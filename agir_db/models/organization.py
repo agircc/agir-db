@@ -71,7 +71,7 @@ class Organization(Base):
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    created_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    created_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
     
     # Additional data for extensibility
     extra_data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
@@ -81,21 +81,21 @@ class Organization(Base):
     parent: Mapped[Optional["Organization"]] = relationship("Organization", remote_side=[id], back_populates="children")
     children: Mapped[List["Organization"]] = relationship("Organization", back_populates="parent")
     
-    # Relationship to user who created this organization
-    creator: Mapped[Optional["User"]] = relationship("User", foreign_keys=[created_by])
+    # Relationship to assistant who created this organization
+    creator: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[created_by])
     
-    # Many-to-many relationship with users through UserOrganization
-    user_memberships: Mapped[List["UserOrganization"]] = relationship("UserOrganization", foreign_keys="UserOrganization.organization_id", back_populates="organization")
-    
-    @property
-    def users(self) -> List["User"]:
-        """Get all users in this organization"""
-        return [membership.user for membership in self.user_memberships if membership.is_active]
+    # Many-to-many relationship with assistants through AssistantOrganization
+    assistant_memberships: Mapped[List["AssistantOrganization"]] = relationship("AssistantOrganization", foreign_keys="AssistantOrganization.organization_id", back_populates="organization")
     
     @property
-    def active_users(self) -> List["User"]:
-        """Get all active users in this organization"""
-        return [membership.user for membership in self.user_memberships if membership.is_active]
+    def assistants(self) -> List["Assistant"]:
+        """Get all assistants in this organization"""
+        return [membership.assistant for membership in self.assistant_memberships if membership.is_active]
+    
+    @property
+    def active_assistants(self) -> List["Assistant"]:
+        """Get all active assistants in this organization"""
+        return [membership.assistant for membership in self.assistant_memberships if membership.is_active]
     
     def __repr__(self):
         return f"<Organization(id={self.id}, name='{self.name}', type='{self.organization_type}')>"
@@ -117,23 +117,23 @@ class Organization(Base):
             descendants.extend(child.get_all_descendants())
         return descendants
     
-    def get_all_users(self) -> List["User"]:
-        """Get all users in this organization (including inactive)"""
-        return [membership.user for membership in self.user_memberships]
+    def get_all_assistants(self) -> List["Assistant"]:
+        """Get all assistants in this organization (including inactive)"""
+        return [membership.assistant for membership in self.assistant_memberships]
     
-    def get_users_by_role(self, role: str) -> List["User"]:
-        """Get users by their role in this organization"""
-        return [membership.user for membership in self.user_memberships 
+    def get_assistants_by_role(self, role: str) -> List["Assistant"]:
+        """Get assistants by their role in this organization"""
+        return [membership.assistant for membership in self.assistant_memberships 
                 if membership.role == role and membership.is_active]
     
-    def has_user(self, user_id: uuid.UUID) -> bool:
-        """Check if a user is a member of this organization"""
-        return any(membership.user_id == user_id and membership.is_active 
-                  for membership in self.user_memberships)
+    def has_assistant(self, assistant_id: uuid.UUID) -> bool:
+        """Check if an assistant is a member of this organization"""
+        return any(membership.assistant_id == assistant_id and membership.is_active 
+                  for membership in self.assistant_memberships)
     
-    def get_user_role(self, user_id: uuid.UUID) -> Optional[str]:
-        """Get user's role in this organization"""
-        for membership in self.user_memberships:
-            if membership.user_id == user_id and membership.is_active:
+    def get_assistant_role(self, assistant_id: uuid.UUID) -> Optional[str]:
+        """Get assistant's role in this organization"""
+        for membership in self.assistant_memberships:
+            if membership.assistant_id == assistant_id and membership.is_active:
                 return membership.role
         return None 

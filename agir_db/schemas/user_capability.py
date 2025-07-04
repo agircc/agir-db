@@ -9,8 +9,8 @@ class CapabilityBase(BaseModel):
     description: Optional[str] = None
 
 
-# Base schema for user capability
-class UserCapabilityBase(BaseModel):
+# Base schema for assistant capability
+class AssistantCapabilityBase(BaseModel):
     name: str
     description: Optional[str] = None
     proficiency_level: float = Field(ge=1.0, le=5.0, default=1.0)
@@ -23,7 +23,7 @@ class CapabilityCreate(CapabilityBase):
 
 
 # Schema for creating a new capability
-class UserCapabilityCreate(UserCapabilityBase):
+class AssistantCapabilityCreate(AssistantCapabilityBase):
     pass
 
 
@@ -34,7 +34,7 @@ class CapabilityUpdate(BaseModel):
 
 
 # Schema for updating a capability
-class UserCapabilityUpdate(BaseModel):
+class AssistantCapabilityUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     proficiency_level: Optional[float] = Field(default=None, ge=1.0, le=5.0)
@@ -60,9 +60,9 @@ class CapabilityFeedback(BaseModel):
 
 
 # Schema for detailed capability view
-class UserCapabilityDetail(UserCapabilityBase):
+class AssistantCapabilityDetail(AssistantCapabilityBase):
     id: uuid.UUID
-    user_id: uuid.UUID
+    assistant_id: uuid.UUID
     confidence_score: float
     success_count: int
     failure_count: int
@@ -76,9 +76,9 @@ class UserCapabilityDetail(UserCapabilityBase):
 
 
 # Schema for basic capability view
-class UserCapabilityBasic(BaseModel):
+class AssistantCapabilityBasic(BaseModel):
     id: uuid.UUID
-    user_id: uuid.UUID
+    assistant_id: uuid.UUID
     name: str
     proficiency_level: float
     confidence_score: float
@@ -93,13 +93,13 @@ class TaskHistoryEntry(BaseModel):
     timestamp: str
 
 
-# Schema for user with all capabilities
-class UserWithCapabilities(BaseModel):
+# Schema for assistant with all capabilities
+class AssistantWithCapabilities(BaseModel):
     id: uuid.UUID
     email: EmailStr
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-    capabilities: List[UserCapabilityDetail] = []
+    capabilities: List[AssistantCapabilityDetail] = []
     
     class Config:
         from_attributes = True

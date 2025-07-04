@@ -12,16 +12,16 @@ class ChatParticipant(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     conversation_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("chat_conversations.id"), nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     joined_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_read_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     
     # Relationships
     conversation = relationship("ChatConversation", back_populates="participants")
-    user = relationship("User", foreign_keys=[user_id], back_populates="chat_participations")
+    assistant = relationship("Assistant", foreign_keys=[assistant_id], back_populates="chat_participations")
     
-    # Add a unique constraint to ensure a user can only be in a conversation once
+    # Add a unique constraint to ensure an assistant can only be in a conversation once
     __table_args__ = (
-        UniqueConstraint('conversation_id', 'user_id', name='uq_participant_conversation_user'),
+        UniqueConstraint('conversation_id', 'assistant_id', name='uq_participant_conversation_assistant'),
     ) 

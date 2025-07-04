@@ -13,9 +13,9 @@ class CustomField(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     field_name: Mapped[str] = mapped_column(String, nullable=False, index=True)
     field_value: Mapped[str] = mapped_column(String, nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
-    # Relationship with User
-    user = relationship("User", back_populates="custom_fields") 
+    # Relationship with Assistant
+    assistant = relationship("Assistant", back_populates="custom_fields") 

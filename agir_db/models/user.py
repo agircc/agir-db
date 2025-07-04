@@ -60,8 +60,8 @@ class EmbeddingModel(str, enum.Enum):
     JINA_EMBED_V2_SMALL = "jina-embeddings-v2-small-en"
 
 
-class User(Base):
-    __tablename__ = "users"
+class Assistant(Base):
+    __tablename__ = "assistants"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
@@ -79,7 +79,7 @@ class User(Base):
     skills: Mapped[List[str]] = mapped_column(ARRAY(String), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
     last_login_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
     
     # Use Enum directly instead of pre-defining ENUM type
@@ -87,38 +87,38 @@ class User(Base):
     embedding_model: Mapped[str] = mapped_column(String, nullable=True, default=EmbeddingModel.OPENAI_3_SMALL)
     
     # Scenario relationship
-    agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="user")
+    agent_assignments: Mapped[List["AgentAssignment"]] = relationship("AgentAssignment", back_populates="assistant")
     
     # Task relationships
     created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")
     assigned_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.assigned_to", back_populates="assignee")
-    task_comments: Mapped[List["TaskComment"]] = relationship("TaskComment", back_populates="user")
-    task_attachments: Mapped[List["TaskAttachment"]] = relationship("TaskAttachment", back_populates="user")
+    task_comments: Mapped[List["TaskComment"]] = relationship("TaskComment", back_populates="assistant")
+    task_attachments: Mapped[List["TaskAttachment"]] = relationship("TaskAttachment", back_populates="assistant")
     
-    # User capability relationship
-    capabilities: Mapped[List["UserCapability"]] = relationship("UserCapability", foreign_keys="UserCapability.user_id", back_populates="user")
+    # Assistant capability relationship
+    capabilities: Mapped[List["AssistantCapability"]] = relationship("AssistantCapability", foreign_keys="AssistantCapability.assistant_id", back_populates="assistant")
     
-    # User memory relationship
-    memories: Mapped[List["UserMemory"]] = relationship("UserMemory", foreign_keys="UserMemory.user_id", back_populates="user")
+    # Assistant memory relationship
+    memories: Mapped[List["AssistantMemory"]] = relationship("AssistantMemory", foreign_keys="AssistantMemory.assistant_id", back_populates="assistant")
     
     # Custom fields relationship
-    custom_fields: Mapped[List["CustomField"]] = relationship("CustomField", back_populates="user")
+    custom_fields: Mapped[List["CustomField"]] = relationship("CustomField", back_populates="assistant")
     
     # Chat relationships
     chat_messages: Mapped[List["ChatMessage"]] = relationship("ChatMessage", foreign_keys="ChatMessage.sender_id", back_populates="sender")
-    chat_participations: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", foreign_keys="ChatParticipant.user_id", back_populates="user")
+    chat_participations: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", foreign_keys="ChatParticipant.assistant_id", back_populates="assistant")
     created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator")
     
     # Organization relationships
     created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator")
-    organization_memberships: Mapped[List["UserOrganization"]] = relationship("UserOrganization", foreign_keys="UserOrganization.user_id", back_populates="user")
+    organization_memberships: Mapped[List["AssistantOrganization"]] = relationship("AssistantOrganization", foreign_keys="AssistantOrganization.assistant_id", back_populates="assistant")
     
     @property
     def organizations(self) -> List["Organization"]:
-        """Get all organizations this user is a member of"""
+        """Get all organizations this assistant is a member of"""
         return [membership.organization for membership in self.organization_memberships if membership.is_active]
     
     @property 
     def active_organizations(self) -> List["Organization"]:
-        """Get all active organizations this user is a member of"""
+        """Get all active organizations this assistant is a member of"""
         return [membership.organization for membership in self.organization_memberships if membership.is_active] 

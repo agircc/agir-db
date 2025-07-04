@@ -8,12 +8,12 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from agir_db.db.base_class import Base
 
 
-class UserCapability(Base):
-    """User capability with integrated skill information and reinforcement learning metrics"""
-    __tablename__ = "user_capabilities"
+class AssistantCapability(Base):
+    """Assistant capability with integrated skill information and reinforcement learning metrics"""
+    __tablename__ = "assistant_capabilities"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False, index=True)
     
     # Capability details (previously in separate table)
     name: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
@@ -39,7 +39,7 @@ class UserCapability(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     
     # Relationships
-    user: Mapped["User"] = relationship("User", foreign_keys=[user_id], back_populates="capabilities")
+    assistant: Mapped["Assistant"] = relationship("Assistant", foreign_keys=[assistant_id], back_populates="capabilities")
     
     # Method to recalculate proficiency based on feedback
     def update_proficiency_from_feedback(self, feedback_score: float, task_id: uuid.UUID = None):

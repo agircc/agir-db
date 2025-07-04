@@ -1,13 +1,13 @@
 # Import all the models, so that Base has them before being
 # imported by Alembic
 from agir_db.db.base_class import Base  # noqa
-from agir_db.models.user import User  # noqa
+from agir_db.models.user import Assistant  # noqa
 from agir_db.models.task import Task, TaskComment, TaskAttachment  # noqa
-from agir_db.models.user_capability import UserCapability  # noqa
-from agir_db.models.memory import UserMemory  # noqa
+from agir_db.models.user_capability import AssistantCapability  # noqa
+from agir_db.models.memory import AssistantMemory  # noqa
 from agir_db.models.scenario import Scenario  # noqa
 from agir_db.models.organization import Organization  # noqa
-from agir_db.models.user_organization import UserOrganization  # noqa
+from agir_db.models.user_organization import AssistantOrganization  # noqa
 from agir_db.models.state import State  # noqa
 from agir_db.models.state_role import StateRole  # noqa
 from agir_db.models.state_transition import StateTransition  # noqa

@@ -9,13 +9,13 @@ from agir_db.db.base_class import Base
 
 class AgentAssignment(Base):
     """
-    Association model that maps users to scenarios with specific roles.
-    This allows tracking which users participate in which scenarios and with what roles.
+    Association model that maps assistants to scenarios with specific roles.
+    This allows tracking which assistants participate in which scenarios and with what roles.
     """
     __tablename__ = "agent_assignments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, index=True)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False, index=True)
     role_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("agent_roles.id"), nullable=False)
     episode_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("episodes.id"), nullable=True, index=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
@@ -23,6 +23,6 @@ class AgentAssignment(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    user = relationship("User", back_populates="agent_assignments")
-    role = relationship("AgentRole", back_populates="users")
+    assistant = relationship("Assistant", back_populates="agent_assignments")
+    role = relationship("AgentRole", back_populates="assistants")
     episode = relationship("Episode", back_populates="agent_assignments") 

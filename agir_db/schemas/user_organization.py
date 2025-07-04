@@ -8,26 +8,26 @@ from agir_db.models.user_organization import OrganizationRole
 
 
 # Shared properties
-class UserOrganizationBase(BaseModel):
+class AssistantOrganizationBase(BaseModel):
     role: Optional[str] = OrganizationRole.MEMBER
     is_active: bool = True
 
 
 # Properties to receive via API on creation
-class UserOrganizationCreate(UserOrganizationBase):
-    user_id: uuid.UUID
+class AssistantOrganizationCreate(AssistantOrganizationBase):
+    assistant_id: uuid.UUID
     organization_id: uuid.UUID
 
 
 # Properties to receive via API on update
-class UserOrganizationUpdate(UserOrganizationBase):
+class AssistantOrganizationUpdate(AssistantOrganizationBase):
     pass
 
 
 # Properties shared by models stored in DB
-class UserOrganizationInDBBase(UserOrganizationBase):
+class AssistantOrganizationInDBBase(AssistantOrganizationBase):
     id: uuid.UUID
-    user_id: uuid.UUID
+    assistant_id: uuid.UUID
     organization_id: uuid.UUID
     joined_at: datetime
     updated_at: datetime
@@ -38,12 +38,12 @@ class UserOrganizationInDBBase(UserOrganizationBase):
 
 
 # Properties to return to client
-class UserOrganizationDTO(UserOrganizationInDBBase):
+class AssistantOrganizationDTO(AssistantOrganizationInDBBase):
     pass
 
 
-# Brief user info for nested relationships
-class UserBrief(BaseModel):
+# Brief assistant info for nested relationships
+class AssistantBrief(BaseModel):
     id: uuid.UUID
     email: str
     first_name: Optional[str] = None
@@ -65,30 +65,30 @@ class OrganizationBrief(BaseModel):
         from_attributes = True
 
 
-# For detailed responses with user and organization info
-class UserOrganizationDetail(UserOrganizationDTO):
-    user: Optional["UserBrief"] = None
+# For detailed responses with assistant and organization info
+class AssistantOrganizationDetail(AssistantOrganizationDTO):
+    assistant: Optional["AssistantBrief"] = None
     organization: Optional["OrganizationBrief"] = None
-    added_by_user: Optional["UserBrief"] = None
+    added_by_assistant: Optional["AssistantBrief"] = None
 
     class Config:
         from_attributes = True
 
 
-# For adding/removing users from organization
+# For adding/removing assistants from organization
 class OrganizationMembershipRequest(BaseModel):
-    user_ids: List[uuid.UUID]
+    assistant_ids: List[uuid.UUID]
     role: Optional[str] = OrganizationRole.MEMBER
 
 
 # For bulk operations
-class UserOrganizationBulkCreate(BaseModel):
-    memberships: List[UserOrganizationCreate]
+class AssistantOrganizationBulkCreate(BaseModel):
+    memberships: List[AssistantOrganizationCreate]
 
 
 # For organization members listing
 class OrganizationMembersList(BaseModel):
-    members: List[UserOrganizationDetail]
+    members: List[AssistantOrganizationDetail]
     total: int
     page: int
     page_size: int
@@ -96,9 +96,9 @@ class OrganizationMembersList(BaseModel):
     has_prev: bool
 
 
-# For user organizations listing
-class UserOrganizationsList(BaseModel):
-    organizations: List[UserOrganizationDetail]
+# For assistant organizations listing
+class AssistantOrganizationsList(BaseModel):
+    organizations: List[AssistantOrganizationDetail]
     total: int
     page: int
     page_size: int
@@ -109,16 +109,16 @@ class UserOrganizationsList(BaseModel):
 # For invitation/join requests
 class OrganizationInvitation(BaseModel):
     organization_id: uuid.UUID
-    user_email: str
+    assistant_email: str
     role: Optional[str] = OrganizationRole.MEMBER
     message: Optional[str] = None
 
 
 # For role changes
 class RoleChangeRequest(BaseModel):
-    user_id: uuid.UUID
+    assistant_id: uuid.UUID
     new_role: str
 
 
 # Enable forward references
-UserOrganizationDetail.model_rebuild() 
+AssistantOrganizationDetail.model_rebuild() 

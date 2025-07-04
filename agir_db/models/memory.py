@@ -8,15 +8,15 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from agir_db.db.base_class import Base
 
 
-class UserMemory(Base):
+class AssistantMemory(Base):
     """
-    Model for storing long-term memories for human agents.
+    Model for storing long-term memories for assistant agents.
     These memories can include significant interactions, preferences, past actions, etc.
     """
-    __tablename__ = "user_memories"
+    __tablename__ = "assistant_memories"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), index=True, nullable=False)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), index=True, nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)  # The memory content
     meta_data: Mapped[dict] = mapped_column(JSONB, default={})  # Additional metadata about the memory
     importance: Mapped[float] = mapped_column(Float, default=1.0)  # Importance score (higher = more important)
@@ -30,4 +30,4 @@ class UserMemory(Base):
     updated_at: Mapped[Optional[datetime]] = mapped_column(DateTime, onupdate=datetime.utcnow, nullable=True)
     
     # Relationships
-    user: Mapped["User"] = relationship("User", back_populates="memories") 
+    assistant: Mapped["Assistant"] = relationship("Assistant", back_populates="memories") 

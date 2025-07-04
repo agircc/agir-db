@@ -35,15 +35,15 @@ class Task(Base):
     status: Mapped[TaskStatus] = mapped_column(Enum(TaskStatus, native_enum=False), default=TaskStatus.TODO, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    owner: Mapped["User"] = relationship("User", foreign_keys=[created_by], back_populates="created_tasks")
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
+    owner: Mapped["Assistant"] = relationship("Assistant", foreign_keys=[created_by], back_populates="created_tasks")
     
     # Assignment
-    assigned_to: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
-    assigned_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    assigned_to: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
+    assigned_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
     assigned_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
-    assignee: Mapped[Optional["User"]] = relationship("User", foreign_keys=[assigned_to], back_populates="assigned_tasks")
-    assigner: Mapped[Optional["User"]] = relationship("User", foreign_keys=[assigned_by])
+    assignee: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[assigned_to], back_populates="assigned_tasks")
+    assigner: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[assigned_by])
     
     # Parent-child relationship
     parent_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("tasks.id"), nullable=True)
@@ -67,14 +67,14 @@ class TaskComment(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     task_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("tasks.id"), nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at: Mapped[Optional[datetime]] = mapped_column(DateTime, onupdate=datetime.utcnow, nullable=True)
     
     # Relationships
     task: Mapped["Task"] = relationship("Task", back_populates="comments")
-    user: Mapped["User"] = relationship("User", back_populates="task_comments")
+    assistant: Mapped["Assistant"] = relationship("Assistant", back_populates="task_comments")
 
 
 class TaskAttachment(Base):
@@ -82,7 +82,7 @@ class TaskAttachment(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     task_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("tasks.id"), nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    assistant_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
     file_name: Mapped[str] = mapped_column(String(255), nullable=False)
     file_url: Mapped[str] = mapped_column(String(512), nullable=False)
     file_size: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -91,4 +91,4 @@ class TaskAttachment(Base):
     
     # Relationships
     task: Mapped["Task"] = relationship("Task", back_populates="attachments")
-    user: Mapped["User"] = relationship("User", back_populates="task_attachments") 
+    assistant: Mapped["Assistant"] = relationship("Assistant", back_populates="task_attachments") 
