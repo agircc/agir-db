@@ -39,11 +39,11 @@ class Task(Base):
     owner: Mapped["User"] = relationship("User", foreign_keys=[created_by])
     
     # Assignment
-    assigned_to: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
-    assigned_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    assigned_to: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
+    assigned_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
     assigned_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
-    assignee: Mapped[Optional["User"]] = relationship("User", foreign_keys=[assigned_to])
-    assigner: Mapped[Optional["User"]] = relationship("User", foreign_keys=[assigned_by])
+    assignee: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[assigned_to])
+    assigner: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[assigned_by])
     
     # Parent-child relationship
     parent_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("tasks.id"), nullable=True)

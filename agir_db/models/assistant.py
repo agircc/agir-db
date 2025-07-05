@@ -86,7 +86,8 @@ class Assistant(Base):
     # Scenario relationship
     assistant_assignments: Mapped[List["AssistantAssignment"]] = relationship("AssistantAssignment", back_populates="assistant")
     
-    # Task relationships (tasks are now created/assigned by users, not assistants)
+    # Task relationships (tasks created by users, but assigned to assistants)
+    assigned_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.assigned_to", back_populates="assignee")
     task_comments: Mapped[List["TaskComment"]] = relationship("TaskComment", back_populates="assistant")
     task_attachments: Mapped[List["TaskAttachment"]] = relationship("TaskAttachment", back_populates="assistant")
     
