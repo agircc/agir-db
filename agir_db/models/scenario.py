@@ -18,11 +18,11 @@ class Scenario(Base):
     name: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     learner_role: Mapped[str] = mapped_column(String(100), nullable=False)
-    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    created_by_assistant: Mapped["Assistant"] = relationship("Assistant")
+    created_by_user: Mapped["User"] = relationship("User")
     states: Mapped[List["State"]] = relationship("State", back_populates="scenario", cascade="all, delete-orphan")
     transitions: Mapped[List["StateTransition"]] = relationship("StateTransition", back_populates="scenario", cascade="all, delete-orphan")
     roles: Mapped[List["AgentRole"]] = relationship("AgentRole", back_populates="scenario", cascade="all, delete-orphan")

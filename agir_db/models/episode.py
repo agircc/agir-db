@@ -19,7 +19,7 @@ class Episode(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
     scenario_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("scenarios.id"), nullable=False, index=True)
     current_state_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("states.id"), nullable=True)
-    initiator_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
+    initiator_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     status: Mapped[str] = mapped_column(Enum(EpisodeStatus, native_enum=False), default=EpisodeStatus.RUNNING, nullable=False)
     config: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
     evolution: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
@@ -28,5 +28,5 @@ class Episode(Base):
 
     scenario = relationship("Scenario")
     current_state = relationship("State")
-    initiator = relationship("Assistant")
+    initiator = relationship("User")
     assistant_assignments: Mapped[List["AssistantAssignment"]] = relationship("AssistantAssignment", back_populates="episode")

@@ -71,7 +71,7 @@ class Organization(Base):
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    created_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
+    created_by: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     
     # Additional data for extensibility
     extra_data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
@@ -81,8 +81,8 @@ class Organization(Base):
     parent: Mapped[Optional["Organization"]] = relationship("Organization", remote_side=[id], back_populates="children")
     children: Mapped[List["Organization"]] = relationship("Organization", back_populates="parent")
     
-    # Relationship to assistant who created this organization
-    creator: Mapped[Optional["Assistant"]] = relationship("Assistant", foreign_keys=[created_by])
+    # Relationship to user who created this organization
+    creator: Mapped[Optional["User"]] = relationship("User", foreign_keys=[created_by])
     
     # Many-to-many relationship with assistants through AssistantOrganization
     assistant_memberships: Mapped[List["AssistantOrganization"]] = relationship("AssistantOrganization", foreign_keys="AssistantOrganization.organization_id", back_populates="organization")

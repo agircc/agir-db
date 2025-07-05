@@ -77,7 +77,7 @@ class Assistant(Base):
     skills: Mapped[List[str]] = mapped_column(ARRAY(String), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=True)
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     
     # Use Enum directly instead of pre-defining ENUM type
     llm_model: Mapped[str] = mapped_column(String, nullable=True, default=LLMModel.GPT_3_5_TURBO)
@@ -86,9 +86,7 @@ class Assistant(Base):
     # Scenario relationship
     assistant_assignments: Mapped[List["AssistantAssignment"]] = relationship("AssistantAssignment", back_populates="assistant")
     
-    # Task relationships
-    created_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.created_by", back_populates="owner")
-    assigned_tasks: Mapped[List["Task"]] = relationship("Task", foreign_keys="Task.assigned_to", back_populates="assignee")
+    # Task relationships (tasks are now created/assigned by users, not assistants)
     task_comments: Mapped[List["TaskComment"]] = relationship("TaskComment", back_populates="assistant")
     task_attachments: Mapped[List["TaskAttachment"]] = relationship("TaskAttachment", back_populates="assistant")
     
@@ -104,10 +102,9 @@ class Assistant(Base):
     # Chat relationships
     chat_messages: Mapped[List["ChatMessage"]] = relationship("ChatMessage", foreign_keys="ChatMessage.sender_id", back_populates="sender")
     chat_participations: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", foreign_keys="ChatParticipant.assistant_id", back_populates="assistant")
-    created_conversations: Mapped[List["ChatConversation"]] = relationship("ChatConversation", foreign_keys="ChatConversation.created_by", back_populates="creator")
+    # Chat conversations are now created by users, not assistants
     
-    # Organization relationships
-    created_organizations: Mapped[List["Organization"]] = relationship("Organization", foreign_keys="Organization.created_by", back_populates="creator")
+    # Organization relationships (organizations are now created by users, not assistants)
     organization_memberships: Mapped[List["AssistantOrganization"]] = relationship("AssistantOrganization", foreign_keys="AssistantOrganization.assistant_id", back_populates="assistant")
     
     @property

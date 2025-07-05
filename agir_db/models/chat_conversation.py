@@ -16,7 +16,7 @@ class ChatConversation(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("assistants.id"), nullable=False)
+    created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     related_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
     related_type: Mapped[str] = mapped_column(String, nullable=True)
 
@@ -24,4 +24,4 @@ class ChatConversation(Base):
     messages: Mapped[List["ChatMessage"]] = relationship("ChatMessage", back_populates="conversation", cascade="all, delete-orphan")
     participants: Mapped[List["ChatParticipant"]] = relationship("ChatParticipant", back_populates="conversation", cascade="all, delete-orphan")
     
-    creator = relationship("Assistant", foreign_keys=[created_by], back_populates="created_conversations") 
+    creator = relationship("User", foreign_keys=[created_by]) 
