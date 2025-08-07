@@ -71,52 +71,17 @@ jobs:
 
             return { pr_number, title: pr.title };
 
-      - name: Get PR file contents
-        id: pr_files
-        uses: actions/github-script@v7
+      - name: Checkout base repository
+        uses: actions/checkout@v4
         with:
-          script: |
-            const fs = require('fs');
-            const pr_number = ${{ steps.pr_context.outputs.pr_number }};
-            
-            // Get changed files with their content
-            const { data: files } = await github.rest.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr_number
-            });
-            
-            let fileContents = '';
-            for (const file of files) {
-              if (file.status !== 'removed' && file.filename.match(/\.(js|ts|jsx|tsx|py|java|go|rs|php|rb|cpp|c|h|css|scss|html|vue|svelte)$/)) {
-                try {
-                  const { data: content } = await github.rest.repos.getContent({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    path: file.filename,
-                    ref: '${{ steps.pr_context.outputs.head_sha }}'
-                  });
-                  
-                  const decodedContent = Buffer.from(content.content, 'base64').toString('utf-8');
-                  fileContents += `\n\n--- File: ${file.filename} ---\n${decodedContent}`;
-                } catch (error) {
-                  console.log(`Could not fetch content for ${file.filename}: ${error.message}`);
-                }
-              }
-            }
-            
-            // Write file contents to disk (limit to 100KB)
-            const limitedContent = fileContents.substring(0, 100000);
-            fs.writeFileSync('pr_files.txt', limitedContent);
-            
-            return { filesProcessed: files.length };
+          fetch-depth: 0
 
       - name: Review with Claude
         uses: anthropics/claude-code-action@beta
         id: claude_review
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-3-5-sonnet-20240620
+          model: claude-3-5-sonnet-20241022
           direct_prompt: |
             Please review this pull request and provide comprehensive feedback.
 
@@ -132,11 +97,6 @@ jobs:
             **Changed Files:**
             ${{ steps.pr_context.outputs.files_changed }}
 
-            **File Contents:**
-            ```
-            $(cat pr_files.txt)
-            ```
-            
             **Diff Content:**
             ```diff
             $(cat pr_diff.txt)
