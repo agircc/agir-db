@@ -1,4 +1,5 @@
-# AGIR Database
+# Agir Database
+
 
 A repository containing database models, migration code, and database utilities for AGIR - A community of artificial general intelligent robots.
 
